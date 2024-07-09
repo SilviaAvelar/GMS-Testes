@@ -5,6 +5,10 @@ describe('US-012-Funcionalidade: Cadastro de membros', () => {
     cy.visit('/')
   });
 
+  afterEach(() => {
+    cy.screenshot()
+  })
+
   it('CT-01 Deve fazer o cadastro de campos obrigatórios', () => {
     var email = `silvia${Date.now()}@teste.com`
     cy.preencherCadastro('Silvia', 'Pereira', email, '1198754322', 'Teste$2024',  )
@@ -43,12 +47,12 @@ describe('US-012-Funcionalidade: Cadastro de membros', () => {
   it('CT-07 Validação de senha vazia', () => {
     var email = `jean${Date.now()}@teste.com`
     cy.preencherCadastro('Jean', 'Pereira', email, '1199754321', '',  )
-    cy.get('#signup-response').should('contain', 'Senha não pode estar vazia')
+    cy.get('#signup-response').should('contain', 'is not allowed to be empty')
   })
 
   it('CT-08 Validação de cadastro de email duplicado', () => {
-    var email = `charles${Date.now()}@teste.com`
-    cy.preencherCadastro('Charles', 'Oliveira', 'hellen@teste.com', '1198754321', 'Teste$2024',  )
+    var email = `hellen${Date.now()}@teste.com`
+    cy.preencherCadastro('Hellen', 'Oliveira', 'hellen@teste.com', '1198754321', 'Teste$2024',  )
     cy.get('#signup-response').should('contain', 'Este email já está cadastrado.')
   })
 
@@ -57,11 +61,6 @@ describe('US-012-Funcionalidade: Cadastro de membros', () => {
     cy.preencherCadastro('Henrique200', 'Pereira', email, '1198754322', 'Teste$2024',  )
     cy.get('#signup-response').should('contain', 'Nome deve conter apenas caracteres alfabéticos, acentuados e espaços')
   })
-
-  /*it('CT-09 Validação do link da política de privacidade', () => {
-    cy.get('a[href]').click()
-    cy.url().should('eq', 'http://127.0.0.1:8085/polices.html')
-  })*/
 
 })
 

@@ -3,6 +3,10 @@
 describe('US-001-Funcionalidade: Busca de Filmes', () => {
     beforeEach(() => {
         cy.visit('/')
+    });
+
+    afterEach(() => {
+        cy.screenshot()
     })
 
     it('CT-01 Deve buscar filmes com sucesso', () => {
@@ -47,7 +51,7 @@ describe('US-001-Funcionalidade: Busca de Filmes', () => {
         cy.get('#results-section').should('contain', 'Superman')
     })
 
-    it.only('CT-07 Paginação ou rolagem infinita', () => {
+    it('CT-07 Paginação ou rolagem infinita', () => {
         cy.get('#search-input').type('Jurassic Park')
         cy.get('#search-button').click()
         cy.get('#results-section').should('contain', 'Jurassic Park')
